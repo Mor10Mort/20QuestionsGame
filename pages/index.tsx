@@ -3,43 +3,46 @@ import CrystallBall from '../components/CrystallBall';
 import { v4 as uuidv4 } from 'uuid';
 import LoadingSpinner from '../components/loading/LoadingSpinner';
 
-// Define the sendRequest function
-async function sendRequest(sessionId, controller, language, answer = null) {
-  try {
-    const response = await fetch('/api/chat', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        sessionId,
-        controller,
-        answer,
-        language,
-      }),
-    });
-
-    const data = await response.json();
-    console.log('data', data);
-    return data;
-  } catch (error) {
-    console.error('Error fetching data:', error);
-    throw error;
-  }
+interface Response {
+  // Define the structure of your response data here
 }
 
 const Home: React.FC = () => {
-  const [response, setResponse] = useState(null);
+  const [response, setResponse] = useState<Response | null>(null);
   const [isLoading, setIsLoading] = useState(true);
-  const [question, setQuestion] = useState(null);
+  const [question, setQuestion] = useState<Response | null>(null);
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
-  const [sessionId, setSessionId] = useState('');
+  const [sessionId, setSessionId] = useState<string>('');
   const [makingGuess, setMakingGuess] = useState(false);
-  const [questionNumber, setQuestionNumber] = useState(1);
-  const [language, setLanguage] = useState(null);
+  const [questionNumber, setQuestionNumber] = useState<number>(1);
+  const [language, setLanguage] = useState<string | null>(null);
   const [gameStarted, setGameStarted] = useState(false);
 
-  const gameController = async (answer) => {
+  const sendRequest = async (sessionId: string, controller: string, language: string, answer: string | null = null) => {
+    try {
+      const response = await fetch('/api/chat', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          sessionId,
+          controller,
+          answer,
+          language,
+        }),
+      });
+
+      const data = await response.json() as Response;
+      console.log('data', data);
+      return data;
+    } catch (error) {
+      console.error('Error fetching data:', error);
+      throw error;
+    }
+  };
+
+  const gameController = async (answer: string) => {
     setIsLoading(true);
 
     try {
@@ -56,14 +59,14 @@ const Home: React.FC = () => {
       setResponse(response);
       setQuestion(response);
       setIsLoading(false);
-      setQuestionNumber((prevNumber) => prevNumber + 1);
+      setQuestionNumber(prevNumber => prevNumber + 1);
     } catch (error) {
       console.error('Error fetching data:', error);
       setIsLoading(false);
     }
   };
 
-  const initializeGame = async (newSessionId, newLanguage) => {
+  const initializeGame = async (newSessionId: string, newLanguage: string) => {
     try {
       const startResponse = await sendRequest(newSessionId, 'start', newLanguage);
       setResponse(startResponse);
@@ -79,7 +82,7 @@ const Home: React.FC = () => {
     // Your code inside useEffect if needed
   }, []);
 
-  const handleLanguageChange = (newLanguage) => {
+  const handleLanguageChange = (newLanguage: string) => {
     const newSessionId = uuidv4();
     setSessionId(newSessionId);
     setLanguage(newLanguage);
