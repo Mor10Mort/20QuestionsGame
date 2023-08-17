@@ -6,7 +6,6 @@ const sessions = {};
 
 const instructionsToOpenAI = [
     "Welcome to the 20 Questions Game!",
-    "The premise of the game is simple: One person, called the “answerer,” thinks of something. The other player — the “questioner” — asks up to 20 yes-or-no questions in order to determine what the answerer is thinking about.",
     "You think of anything in the world",
     "I guess by using yes/no questions only",
     "I use your earlier answers to resonate to new questions to better determine it is what you are thinking of",
