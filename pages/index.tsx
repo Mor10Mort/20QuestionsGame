@@ -120,7 +120,7 @@ const Home: React.FC = () => {
                           &larr; Maybe
                         </button>
                         <button className="labelRight label" onClick={() => gameController('no')}>
-                          &rarr; NO
+                          &rarr; NO.
                         </button>
                       </>
                     ) : (
