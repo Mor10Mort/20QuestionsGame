@@ -1,0 +1,114 @@
+body {
+ margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+  background: url('/background1Cropped.png') top center / cover no-repeat fixed;
+
+}
+
+h2{
+  color:white;
+  text-align: center;
+}
+
+.overlay {
+ 
+}
+
+.label {
+  font-size: 1.2rem;
+  font-weight: bold;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  opacity: 0.8;
+}
+
+.labelUp {
+  background-color: #00cc99;
+  transform: rotate(0deg);
+  top:120px;
+}
+.labelDown {
+  background-color: #cc0000;
+  transform: rotate(0deg);
+  top:120px;
+}
+
+.labelLeft {
+  background-color: #ffcc00;
+  transform: rotate(-10deg);
+}
+
+.labelRight {
+  background-color: #ff3366;
+  transform: rotate(+10deg);
+}
+
+
+/* Add this CSS to your existing styles or create a new CSS file */
+
+.timeline {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 10px;
+  overflow-x: auto; /* Enable horizontal scrolling for small screens */
+}
+
+.timeline-dot {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background-color: #ccc;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 12px;
+  color: #fff;
+  margin: 0 2px;
+  transition: background-color 0.3s ease;
+}
+
+.timeline-dot.filled {
+  background-color: #007bff; /* Change this color to match your design */
+}
+
+.progress-bar {
+  width: 100%;
+  height: 6px;
+  background-color: #ccc;
+  position: relative;
+  margin-top: 8px;
+}
+
+.progress-bar-fill {
+  height: 100%;
+  background-color: #007bff; /* Change this color to match your design */
+  transition: width 0.3s ease;
+}
+
+
+/*Language*/
+/* Add this CSS to your existing styles or create a new CSS file */
+
+.language-toggle {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.language-button {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  padding: 5px 10px;
+  margin: 0 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.language-button:hover {
+  background-color: #0056b3;
+}
