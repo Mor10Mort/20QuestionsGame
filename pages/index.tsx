@@ -116,6 +116,9 @@ const Home: React.FC = () => {
                         <button className="labelLeft label" onClick={() => gameController('yes')}>
                           &larr; YES
                         </button>
+                        <button className="labelLeft label" onClick={() => gameController('maybe')}>
+                          &larr; Maybe
+                        </button>
                         <button className="labelRight label" onClick={() => gameController('no')}>
                           &rarr; NO
                         </button>

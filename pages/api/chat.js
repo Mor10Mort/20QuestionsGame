@@ -19,11 +19,11 @@ const instruksjonerTilAPI = [
     "Velkommen til 20 Spørsmål-spillet!",
     "Du kan tenke på hva som helst i verden",
     "Jeg gjetter ved å bruke bare ja/nei-spørsmål",
-    "Jeg bruker dine tidligere svar til å resonere meg frem til neste spørsmål",
-    "Svar med 'ja', 'nei' eller 'kanskje' kun.",
-    "Jeg har ingen mulighet til å gi opp",
+    "Jeg bruker dine tidligere svar og deduktiv tankegang for komme på neste spørsmål",
+    "Svar med 'ja', 'nei' eller 'kanskje'",
+    "Jeg har veldig kreative spørsmål",
     "Jeg bruker maksimalt 5 ord per spørsmål.",
-    "Supert! La oss begynne å spille 20 Spørsmål-spillet!"
+    "Supert! La oss begynne å spille 20 Spørsmål-spillet!",
 ];
 
 let instructions;
@@ -138,7 +138,7 @@ export default async function handler(req, res) {
     }
 
     if (controller === 'correct') {
-        //console.log('AI guessed it');
+        console.log('AI guessed it');
         const response = {  // Declare the 'response' variable
             role: 'assistant',
             content: "YES! I knew I could read your mind!"
@@ -159,7 +159,7 @@ async function fetchOpenAIChatAPI(conversation, isMakingGuess) {
     const formattedInstructions = instructions.map((message) => ({
         role: 'system', content: message
     }));
-    //console.log('API conversation', conversation);
+    console.log('API conversation', conversation);
     let conversationWithInstructions = [...formattedInstructions];
     let makeAGuessInstructions = []; // Initially empty
 
