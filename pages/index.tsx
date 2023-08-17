@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import Head from 'next/head';
 import CrystallBall from '../components/CrystallBall';
 import { v4 as uuidv4 } from 'uuid';
 import LoadingSpinner from '../components/loading/LoadingSpinner';
-
 
 // Define the sendRequest function
 async function sendRequest(sessionId, controller, language, answer = null) {
@@ -17,7 +15,7 @@ async function sendRequest(sessionId, controller, language, answer = null) {
         sessionId,
         controller,
         answer,
-        language
+        language,
       }),
     });
 
@@ -37,8 +35,8 @@ const Home: React.FC = () => {
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
   const [sessionId, setSessionId] = useState('');
   const [makingGuess, setMakingGuess] = useState(false);
-  const [questionNumber, setQuestionNumber] = useState(1); // Add question number state
-  const [language, setLanguage] = useState(null); // Set initial language to null
+  const [questionNumber, setQuestionNumber] = useState(1);
+  const [language, setLanguage] = useState(null);
   const [gameStarted, setGameStarted] = useState(false);
 
   const gameController = async (answer) => {
@@ -48,9 +46,8 @@ const Home: React.FC = () => {
       let controller = 'playing';
       if (answer === 'correct') {
         controller = 'correct';
-        /* setShowSuccessMessage(true);*/
       }
-      const response = await sendRequest(sessionId, controller, language, answer); // Pass sessionId
+      const response = await sendRequest(sessionId, controller, language, answer);
       if (response.step) {
         setMakingGuess(true);
       } else {
@@ -59,18 +56,16 @@ const Home: React.FC = () => {
       setResponse(response);
       setQuestion(response);
       setIsLoading(false);
-      setQuestionNumber((prevNumber) => prevNumber + 1); // Increment question number
-
+      setQuestionNumber((prevNumber) => prevNumber + 1);
     } catch (error) {
       console.error('Error fetching data:', error);
       setIsLoading(false);
     }
   };
 
-  const initializeGame = async (shesID, language) => {
-    console.log('languagehei', language);
+  const initializeGame = async (newSessionId, newLanguage) => {
     try {
-      const startResponse = await sendRequest(shesID, 'start', language); // Pass sessionId
+      const startResponse = await sendRequest(newSessionId, 'start', newLanguage);
       setResponse(startResponse);
       setQuestion(startResponse);
       setIsLoading(false);
@@ -81,25 +76,19 @@ const Home: React.FC = () => {
   };
 
   useEffect(() => {
-
+    // Your code inside useEffect if needed
   }, []);
-
 
   const handleLanguageChange = (newLanguage) => {
     const newSessionId = uuidv4();
     setSessionId(newSessionId);
     setLanguage(newLanguage);
     initializeGame(newSessionId, newLanguage);
-
-    setGameStarted(true); // Start the game once a language is selected
-    // Generate a new sessionId and store it in the state
-
+    setGameStarted(true);
   };
-
 
   return (
     <div>
-
       {!gameStarted && (
         <>
           <h2 className="text-center text-white">Choose language</h2>
@@ -122,7 +111,7 @@ const Home: React.FC = () => {
                 <div>
                   <CrystallBall question={question} />
                   <div className="overlay">
-                    {!makingGuess && (
+                    {!makingGuess ? (
                       <>
                         <button className="labelLeft label" onClick={() => gameController('yes')}>
                           &larr; YES
@@ -131,8 +120,7 @@ const Home: React.FC = () => {
                           &rarr; NO
                         </button>
                       </>
-                    )}
-                    {makingGuess && (
+                    ) : (
                       <>
                         <button className="labelUp label" onClick={() => gameController('correct')}>
                           YOU GUESSED IT!
@@ -148,13 +136,12 @@ const Home: React.FC = () => {
               {showSuccessMessage && (
                 <div className="flex flex-col items-center mt-3">
                   <p className="text-2xl mb-2">🧠 I KNEW IT 🧠</p>
-                  <button onClick={() => { initializeGame(); setShowSuccessMessage(false); }} className="mt-4 bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded">
+                  <button onClick={() => { initializeGame(sessionId, language); setShowSuccessMessage(false); }} className="mt-4 bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded">
                     Play Again
                   </button>
                 </div>
               )}
               <div className="timeline">
-                {/* Display the timeline here */}
                 {[...Array(20)].map((_, index) => (
                   <div
                     key={index}
