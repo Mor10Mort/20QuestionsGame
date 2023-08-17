@@ -141,7 +141,7 @@ const Home: React.FC = () => {
               )}
               {showSuccessMessage && (
                 <div className="flex flex-col items-center mt-3">
-                  <p className="text-2xl mb-2">🧠 I KNEW IT 🧠</p>
+                  <p className="text-2xl mb-2">🧠 I KNEW IT! 🧠</p>
                   <button onClick={() => { initializeGame(sessionId, language); setShowSuccessMessage(false); }} className="mt-4 bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded">
                     Play Again
                   </button>
