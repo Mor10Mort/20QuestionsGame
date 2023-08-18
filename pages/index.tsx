@@ -106,44 +106,6 @@ const Home: React.FC = () => {
         <main className="max-w-main mx-auto h-screen flex items-center justify-center flex-col">
           <section>
             <div className="flex flex-col items-center mt-3">
-              {isLoading && <LoadingSpinner />}
-              {!showSuccessMessage && (
-                <div>
-                  <CrystallBall question={question} />
-                  <div className="overlay">
-                    {!makingGuess ? (
-                      <>
-                        <button className="labelLeft label" onClick={() => gameController('yes')}>
-                          &larr; YES
-                        </button>
-                        <button className="labelLeft label" onClick={() => gameController('maybe')}>
-                          &larr; Maybe
-                        </button>
-                        <button className="labelRight label" onClick={() => gameController('no')}>
-                          &rarr; NO.
-                        </button>
-                      </>
-                    ) : (
-                      <>
-                        <button className="labelUp label" onClick={() => gameController('correct')}>
-                          YOU GUESSED IT!
-                        </button>
-                        <button className="labelDown label" onClick={() => gameController('wrong')}>
-                          NOOOOO!
-                        </button>
-                      </>
-                    )}
-                  </div>
-                </div>
-              )}
-              {showSuccessMessage && (
-                <div className="flex flex-col items-center mt-3">
-                  <p className="text-2xl mb-2">🧠 I KNEW IT 🧠</p>
-                  <button onClick={() => { initializeGame(sessionId, language); setShowSuccessMessage(false); }} className="mt-4 bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded">
-                    Play Again
-                  </button>
-                </div>
-              )}
               <div className="timeline">
                 {[...Array(20)].map((_, index) => (
                   <div
@@ -154,6 +116,48 @@ const Home: React.FC = () => {
                   </div>
                 ))}
               </div>
+              {isLoading && <LoadingSpinner />}
+              {!showSuccessMessage && (
+                <div>
+                  <CrystallBall question={question} />
+                  {!makingGuess ? (
+                    <>
+                      <div className="button-container">
+                        <button className="label" onClick={() => gameController('unknown')}>
+                          Unkown
+                        </button>
+                        <button className="label" onClick={() => gameController('no')}>
+                          NO
+                        </button>
+                        <button className="label" onClick={() => gameController('yes')}>
+                          YES
+                        </button>
+                        <button className="label" onClick={() => gameController('sometimes')}>
+                          Sometimes
+                        </button>
+                      </div>
+                    </>
+                  ) : (
+                    <>
+                      <button className="labelUp label" onClick={() => gameController('correct')}>
+                        YOU GUESSED IT!
+                      </button>
+                      <button className="labelDown label" onClick={() => gameController('wrong')}>
+                        NOOOOO!
+                      </button>
+                    </>
+                  )}
+                </div>
+              )}
+              {showSuccessMessage && (
+                <div className="flex flex-col items-center mt-3">
+                  <p className="text-2xl mb-2">🧠 I KNEW IT 🧠</p>
+                  <button onClick={() => { initializeGame(sessionId, language); setShowSuccessMessage(false); }} className="mt-4 bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded">
+                    Play Again
+                  </button>
+                </div>
+              )}
+
             </div>
           </section>
         </main>

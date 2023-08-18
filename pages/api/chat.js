@@ -8,8 +8,8 @@ const instructionsToOpenAI = [
     "Welcome to the 20 Questions Game!",
     "You think of anything in the world",
     "I guess by using yes/no questions only",
-    "I use your earlier answers to resonate to new questions to better determine it is what you are thinking of",
-    "Answer with 'yes', 'no' or 'maybe' only.",
+    "I use your previous answers and deductive reasoning to come up with the next question.",
+    "Answer with 'yes', 'no', 'maybe' or 'unknown' only.",
     "I am an no point allowed to give up",
     "I'll use max 5 words per question.",
     "Great! Let's start playing the 20 Questions Game!"
@@ -21,7 +21,6 @@ const instruksjonerTilAPI = [
     "Jeg gjetter ved å bruke bare ja/nei-spørsmål",
     "Jeg bruker dine tidligere svar og deduktiv tankegang for komme på neste spørsmål",
     "Svar med 'ja', 'nei' eller 'kanskje'",
-    "Jeg har veldig kreative spørsmål",
     "Jeg bruker maksimalt 5 ord per spørsmål.",
     "Supert! La oss begynne å spille 20 Spørsmål-spillet!",
 ];
@@ -53,6 +52,7 @@ export default async function handler(req, res) {
     if (controller === 'start') {
         console.log('Reset');
         conversation.length = 0;
+        maxRounds = 1;
         //conversation = []; // Reset the conversation array
         const response = await fetchOpenAIChatAPI([]); // Initial empty conversation
         conversation.push(response);

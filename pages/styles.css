@@ -33,17 +33,38 @@ h2{
   transform: rotate(0deg);
   top:120px;
 }
-
-.labelLeft {
-  background-color: #ffcc00;
-  transform: rotate(-10deg);
+.button-container {
+  display: flex;
+  justify-content: space-between;
+  max-width: 500px; /* Adjust the max width as needed */
+  margin: 2em auto; /* Center the container horizontally and add margin */
 }
 
-.labelRight {
-  background-color: #ff3366;
-  transform: rotate(+10deg);
+/* Common styles for all buttons */
+.label {
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+  color: white;
 }
 
+/* Individual button styles */
+.label:nth-child(1) {
+  background-color: orange; /* LEFT button */
+}
+
+.label:nth-child(2) {
+  background-color: red; /* MIDDLE button */
+}
+
+.label:nth-child(3) {
+  background-color: green; /* RIGHT button */
+}
+
+.label:nth-child(4) {
+  background-color: blue; /* RIGHT button */
+}
 
 /* Add this CSS to your existing styles or create a new CSS file */
 
@@ -51,8 +72,9 @@ h2{
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-top: 10px;
+  margin: 2em 0;
   overflow-x: auto; /* Enable horizontal scrolling for small screens */
+
 }
 
 .timeline-dot {
@@ -68,6 +90,7 @@ h2{
   color: #fff;
   margin: 0 2px;
   transition: background-color 0.3s ease;
+ 
 }
 
 .timeline-dot.filled {
