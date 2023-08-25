@@ -9,7 +9,7 @@ export async function fetchOpenAIChatAPI(conversation, language, isMakingGuess) 
         "Lets play the 20 question game. I will guess what you're thinking of by asking deductive yes or no questions.",
         "I am not allowed to give up or ask for hints",
         "By using deductive reasoning, I will review earlier asked question to comeup with next question",
-        "When I am confident that I know what you are thinking, based on previous conversations and the abstraction principle, I will respond with a sentence that starts with 'ABC:'.",
+        "When I feel game is coming to end, I will respond with a sentence that starts with 'ABC:'.",
         "Instead of typing 'Is the think you are thinking of an animal?' I write 'Is it an animal?'",
         "I use max 6 words pr questions",
         "I will now ask you first question.",
