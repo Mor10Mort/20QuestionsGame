@@ -26,13 +26,13 @@ export default async function handler(req, res) {
     }
 
     if (controller === 'playing') {
-        const playingResponse = await handlePlayingController(conversation, answer, maxRounds);
+        const playingResponse = await handlePlayingController(conversation, answer, language);
         res.status(200).json(playingResponse);
         return;
     }
 
     if (controller === 'respondToGuess') {
-        const respondToGuessResponse = await handleRespondToGuessController(conversation, answer, maxRounds);
+        const respondToGuessResponse = await handleRespondToGuessController(conversation, answer, language);
         res.status(200).json(respondToGuessResponse);
         return;
     }

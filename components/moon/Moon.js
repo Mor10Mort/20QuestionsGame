@@ -22,18 +22,20 @@ const Moon = ({ question }) => {
             <Head>
                 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative&display=swap" />
             </Head>
-            <main className={styles.moon}>
-                <div className={`${styles.moonTexture}`}></div>
-                <div className={`${styles.moonShade} ${styles.moonShadeLeft}`}></div>
-                <div className={`${showQuestion ? 'showQ' : ''}`}>
-                    {showQuestion && (
-                        <p className={styles.question}>
-                            {question.content}
-                        </p>
-                    )}
+            <div className={styles.container_moon}>
+                <div className={styles.moon}>
+                    <div className={`${styles.moonTexture}`}></div>
+                    <div className={`${styles.moonShade} ${styles.moonShadeLeft}`}></div>
+                    <div className={`${showQuestion ? 'showQ' : ''}`}>
+                        {showQuestion && (
+                            <p className={styles.question}>
+                                {question.content}
+                            </p>
+                        )}
+                    </div>
+                    <div className={`${styles.moonShade} ${styles.moonShadeRight}`}></div>
                 </div>
-                <div className={`${styles.moonShade} ${styles.moonShadeRight}`}></div>
-            </main>
+            </div>
         </>
     );
 };

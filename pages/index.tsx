@@ -129,29 +129,29 @@ const Home: React.FC = () => {
                   {!makingGuess ? (
                     <>
                       <div className="button-container">
-                        <button className="label" onClick={() => gameController('playing', 'unknown')}>
+                        <button className="label orange" onClick={() => gameController('playing', 'unknown')}>
                           Unkown
                         </button>
-                        <button className="label" onClick={() => gameController('playing', 'no')}>
+                        <button className="label red" onClick={() => gameController('playing', 'no')}>
                           NO
                         </button>
-                        <button className="label" onClick={() => gameController('playing', 'yes')}>
+                        <button className="label green" onClick={() => gameController('playing', 'yes')}>
                           YES
                         </button>
-                        <button className="label" onClick={() => gameController('playing', 'sometimes')}>
+                        <button className="label blue" onClick={() => gameController('playing', 'sometimes')}>
                           Sometimes
                         </button>
                       </div>
                     </>
                   ) : (
                     <div className="button-container">
-                      <button className="label label" onClick={() => gameController(
+                      <button className="label red" onClick={() => gameController(
                         'respondToGuess',
                         'no'
                       )}>
-                        Nope!
+                        Thats not it!
                       </button>
-                      <button className="label label" onClick={() => gameController(
+                      <button className="label green" onClick={() => gameController(
                         'respondToGuess',
                         'yes'
                       )}>

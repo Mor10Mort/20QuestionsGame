@@ -89,6 +89,10 @@ padding:1em;
   margin: 0; /* Reset margin to ensure the container takes up the whole page */
   height: 100vh; /* Set container height to 100% of viewport height */
 }
+.container {
+    display: inherit;
+  }
+
 /* Media query for desktop layout */
 @media (min-width: 768px) {
   .container {
@@ -129,19 +133,19 @@ padding:1em;
 }
 
 /* Individual button styles */
-.label:nth-child(1) {
+.label.orange {
   background-color: #ff7733; /* Slightly different color for the LEFT button */
 }
 
-.label:nth-child(2) {
+.label.red {
   background-color: #ff3333; /* Slightly different color for the MIDDLE button */
 }
 
-.label:nth-child(3) {
+.label.green {
   background-color: #33cc33; /* Slightly different color for the RIGHT button */
 }
 
-.label:nth-child(4) {
+.label.blue {
   background-color: #3366ff; /* Slightly different color for the RIGHT button */
 }
 
