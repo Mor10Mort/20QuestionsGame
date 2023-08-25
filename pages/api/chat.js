@@ -11,6 +11,7 @@ export default async function handler(req, res) {
 
     const { sessionId, controller, language, answer } = req.body; // Include 'language' here
     let maxRounds = 1;
+    console.log('sessionId', sessionId);
     // Create a session-specific conversation array
     let conversation = sessions[sessionId] || [];
     if (!sessions[sessionId]) {

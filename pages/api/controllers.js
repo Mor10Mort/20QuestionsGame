@@ -117,7 +117,7 @@ export async function handleRespondToGuessController(conversation, answer) {
                 content: 'no'
             },
             {
-                role: 'assistant',
+                role: 'system',
                 content: "No, it was incorrect. Let me keep trying asking. I will ask a little broader questions."
             },
         ];
