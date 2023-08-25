@@ -118,8 +118,12 @@ export async function handleRespondToGuessController(conversation, answer, langu
             },
             {
                 role: 'system',
-                content: "Sorry for the wrong guess. Let me keep trying asking. I will ask a little broader questions."
+                content: "Last question was wrong guess. I am on the wrong path. I need to ask a little broader questions to get back on track."
             },
+            {
+                role: 'assistant',
+                content: 'Thank you for patience. Lets keep trying.'
+            }
         ];
 
         const keepTrying = await fetchOpenAIChatAPI(guessedWrong, language, true);
