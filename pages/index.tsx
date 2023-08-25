@@ -98,7 +98,7 @@ const Home: React.FC = () => {
           <h2 className="introText">Think of something...<br />...anything that comes to 🧠 <br />I will guess it within 20 questions.</h2>
           <div className="language-toggle">
             <button className="language-button" onClick={() => handleLanguageChange('english')}>
-              English
+              English (seems to guess best in english)
             </button>
             <button className="language-button" onClick={() => handleLanguageChange('norwegian')}>
               Norwegian
