@@ -1,0 +1,90 @@
+.moon {
+  	background-color: rgba(255, 248, 166, 1);
+	box-shadow: 0 0 20px rgba(52, 152, 219, 0.9);
+	width: 60vmin;
+	height: 60vmin;
+	border-radius: 50%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	position: relative;
+    overflow: hidden;
+}
+.moonTexture{
+	background-image: url(/moon_pattern.jpg);
+	box-shadow: 0 0 20px rgba(52, 152, 219, 0.9);
+    position: absolute;
+    top: -4px;
+    left: -128px;
+    width: -webkit-fill-available;
+    height: -webkit-fill-available;
+    opacity: 0.35;
+    background-size: 135%;
+}
+.moonShadeLeft{
+  position: absolute;
+  box-shadow: 0 0 20px rgb(255 255 255 / 19%);
+  width: 40%;
+  height: 100%;
+  border-radius: 50% 0 0 50%; /* Adjusted border-radius for curved effect */
+  top: 0;
+  left: -15px;
+  background: linear-gradient(to right, rgba(0, 0, 0, 0.55), transparent);
+  transform-origin: right;
+  transform: skewX(-16deg);
+}
+.moonShadeRight{
+	position: absolute;
+	box-shadow: 0 0 20px rgb(255 255 255 / 19%);
+    width: 21%;
+    height: 100%;
+    border-radius: 50% 0 0 50%;
+    top: 0;
+    right: -66px;
+    background: linear-gradient(to left, rgba(0, 0, 0, 0.15), transparent);
+    transform-origin: left;
+    transform: skewX(322deg);
+}
+.moon::before,
+.moon::after {
+	content: '';
+	position: absolute;
+	background: radial-gradient(circle, #c9c48c 30%, #c2bd89 70%);
+	border-radius: 50%;
+	box-shadow: 0 0 20px rgba(55, 55, 55, 0.4);
+}
+
+.moon::before {
+	top: 6vmin;
+	left: 11vmin;
+	width: 6vmin;
+	height: 6vmin;
+	transform: skewX(155deg);
+}
+
+.moon::after {
+	top: 49vmin;
+    left: 42vmin;
+    width: 8vmin;
+    height: 8vmin;
+    transform: skewX(344deg);
+}
+
+.question {
+	color: #333;
+	text-shadow: 0 0 0.6em rgb(49 45 32);
+	padding: .5em;
+    font-weight: bold;
+	text-align: center;
+	opacity: 1;
+	font-family: 'Cinzel Decorative', sans-serif;
+	font-size: 7vw;
+}
+
+/* Adjust font size for larger desktop screens */
+@media screen and (min-width: 500px) {
+	.question {
+		font-size: 2.5vw;
+		/* Adjusted font size for larger screens */
+	}
+}

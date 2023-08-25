@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import CrystallBall from '../components/CrystallBall';
+import Moon from '../components/moon/Moon';
 import { v4 as uuidv4 } from 'uuid';
 import LoadingSpinner from '../components/loading/LoadingSpinner';
 
@@ -20,7 +20,6 @@ async function sendRequest(sessionId, controller, language, answer = null) {
     });
 
     const data = await response.json();
-    console.log('data', data);
     return data;
   } catch (error) {
     console.error('Error fetching data:', error);
@@ -38,22 +37,26 @@ const Home: React.FC = () => {
   const [questionNumber, setQuestionNumber] = useState(1);
   const [language, setLanguage] = useState(null);
   const [gameStarted, setGameStarted] = useState(false);
+  const [gameOver, setGameOver] = useState(false);
 
-  const gameController = async (answer) => {
+  const gameController = async (controller, answer) => {
     setIsLoading(true);
-
+    //set heller at controller settes fra kanppene...playing, guess_correct, etc
     try {
-      let controller = 'playing';
-      if (answer === 'correct') {
-        controller = 'correct';
-      }
+
       const response = await sendRequest(sessionId, controller, language, answer);
-      if (response.step) {
+      if ((response.finalGuess == true) || (response.makingGuess == true)) {
         setMakingGuess(true);
       } else {
         setMakingGuess(false);
       }
+      if (response.gameComplete == true) {
+        setGameOver(true);
+      } else {
+        setGameOver(false);
+      }
       setResponse(response);
+      console.log(response);
       setQuestion(response);
       setIsLoading(false);
       setQuestionNumber((prevNumber) => prevNumber + 1);
@@ -68,6 +71,7 @@ const Home: React.FC = () => {
       const startResponse = await sendRequest(newSessionId, 'start', newLanguage);
       setResponse(startResponse);
       setQuestion(startResponse);
+      console.log(question);
       setIsLoading(false);
     } catch (error) {
       console.error('Error initializing game:', error);
@@ -90,8 +94,8 @@ const Home: React.FC = () => {
   return (
     <div>
       {!gameStarted && (
-        <>
-          <h2 className="text-center text-white">Choose language</h2>
+        <div className='intro-container'>
+          <h2 className="introText">Think of something...<br />...anything that comes to 🧠 <br />I will guess it within 20 questions.</h2>
           <div className="language-toggle">
             <button className="language-button" onClick={() => handleLanguageChange('english')}>
               English
@@ -100,69 +104,88 @@ const Home: React.FC = () => {
               Norwegian
             </button>
           </div>
-        </>
-      )}
-      {gameStarted && (
-        <main className="max-w-main mx-auto h-screen flex items-center justify-center flex-col">
+        </div>
+      )
+      }
+      {
+        gameStarted && !gameOver && (
           <section>
-            <div className="flex flex-col items-center mt-3">
+            <div>
               <div className="timeline">
                 {[...Array(20)].map((_, index) => (
                   <div
                     key={index}
                     className={`timeline-dot ${index < questionNumber ? 'filled' : ''}`}
+                    onClick={() => alert(`Index: ${index}`)}
                   >
-                    {index + 1}
+                    {20 - index}
                   </div>
                 ))}
               </div>
+
               {isLoading && <LoadingSpinner />}
               {!showSuccessMessage && (
-                <div>
-                  <CrystallBall question={question} />
+                <div className='container'>
                   {!makingGuess ? (
                     <>
                       <div className="button-container">
-                        <button className="label" onClick={() => gameController('unknown')}>
+                        <button className="label" onClick={() => gameController('playing', 'unknown')}>
                           Unkown
                         </button>
-                        <button className="label" onClick={() => gameController('no')}>
+                        <button className="label" onClick={() => gameController('playing', 'no')}>
                           NO
                         </button>
-                        <button className="label" onClick={() => gameController('yes')}>
+                        <button className="label" onClick={() => gameController('playing', 'yes')}>
                           YES
                         </button>
-                        <button className="label" onClick={() => gameController('sometimes')}>
+                        <button className="label" onClick={() => gameController('playing', 'sometimes')}>
                           Sometimes
                         </button>
                       </div>
                     </>
                   ) : (
-                    <>
-                      <button className="labelUp label" onClick={() => gameController('correct')}>
+                    <div className="button-container">
+                      <button className="label label" onClick={() => gameController(
+                        'respondToGuess',
+                        'no'
+                      )}>
+                        Nope!
+                      </button>
+                      <button className="label label" onClick={() => gameController(
+                        'respondToGuess',
+                        'yes'
+                      )}>
                         YOU GUESSED IT!
                       </button>
-                      <button className="labelDown label" onClick={() => gameController('wrong')}>
-                        NOOOOO!
-                      </button>
-                    </>
+                    </div>
                   )}
+                  <Moon question={question} />
                 </div>
               )}
-              {showSuccessMessage && (
-                <div className="flex flex-col items-center mt-3">
-                  <p className="text-2xl mb-2">🧠 I KNEW IT 🧠</p>
-                  <button onClick={() => { initializeGame(sessionId, language); setShowSuccessMessage(false); }} className="mt-4 bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded">
-                    Play Again
-                  </button>
-                </div>
-              )}
-
             </div>
           </section>
-        </main>
-      )}
-    </div>
+
+        )
+      }
+      {
+        gameOver && (
+          <section>
+            <div className="resultOfGame">
+              <p className='question'> {question.content}</p>
+              <button onClick={() => {
+                initializeGame(sessionId, language);
+                setGameOver(false);
+                setShowSuccessMessage(false);
+                setQuestionNumber(1);
+                setQuestion({ content: "" });
+              }} className="playAgain">
+                Play Again
+              </button>
+            </div>
+          </section>
+        )
+      }
+    </div >
   );
 };
 

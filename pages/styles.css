@@ -1,9 +1,20 @@
+/* Reset default margin and padding on all elements */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box; /* Ensures padding and border are included in element's total width/height */
+}
+
 body {
  margin: 0;
   padding: 0;
   font-family: Arial, sans-serif;
-  background: url('/background1Cropped.png') top center / cover no-repeat fixed;
-
+  background: url('/background.jpg') center bottom / cover no-repeat fixed;
+}
+@media screen and (min-width: 768px) {
+body {
+    background: url('/background.jpg') center bottom / cover no-repeat fixed;
+  }
 }
 
 h2{
@@ -11,35 +22,98 @@ h2{
   text-align: center;
 }
 
-.overlay {
- 
-}
 
-.label {
+
+                .showQ {
+                    opacity: 0; /* Start with zero opacity */
+                    filter: blur(20px); /* Apply initial blur */
+                    transform: scale(0.5); /* Start with a smaller size */
+                    animation: fog-in 1s ease-in-out forwards;
+                }
+
+                @keyframes fog-in {
+                    0% {
+                        opacity: 0;
+                        filter: blur(20px);
+                        transform: scale(0.5);
+                    }
+                    100% {
+                        opacity: 1;
+                        filter: blur(0); /* Remove blur */
+                        transform: scale(1);
+                    }
+                }
+
+.resultOfGame{
+      background-color: rgba(255, 248, 166, 0.7);
+     position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+padding:1em;
+border-radius: 1em;
+font-size: 1.5em;
+}
+.introText{
+  margin:2em;
+  line-height: 2em;
+}
+.playAgain {
+  text-align: center; 
+  background-color: #da2343; 
+  width: 100%;
   font-size: 1.2rem;
   font-weight: bold;
   padding: 0.5rem 1rem;
   border-radius: 8px;
   opacity: 0.8;
+  color:white;
 }
 
-.labelUp {
-  background-color: #00cc99;
-  transform: rotate(0deg);
-  top:120px;
-}
-.labelDown {
-  background-color: #cc0000;
-  transform: rotate(0deg);
-  top:120px;
-}
 .button-container {
   display: flex;
-  justify-content: space-between;
-  max-width: 500px; /* Adjust the max width as needed */
-  margin: 2em auto; /* Center the container horizontally and add margin */
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px; /* Adjust spacing between buttons */
+      background-color: rgb(36 50 63 / 80%); /* R: 52, G: 110, B: 168, Alpha: 0.8 */
+padding:1em;
+}
+.intro-container {
+  display: flex; /* Use "flex" instead of "column" for flex container */
+  justify-content: center;
+  align-items: center;
+  flex-direction: column; /* Set flex direction to "column" */
+  background-color: rgba(36, 50, 63, 0.8); /* Use "rgba" for transparency */
+  padding: 1em;
+  margin: 0; /* Reset margin to ensure the container takes up the whole page */
+  height: 100vh; /* Set container height to 100% of viewport height */
+}
+/* Media query for desktop layout */
+@media (min-width: 768px) {
+  .container {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: center;
+    align-items: center;
+    gap: 3em; 
+  }
+
+  .button-container {
+    flex-direction: row;
+    align-items: initial;
+    background-color: rgb(36 50 63 / 80%); /* R: 52, G: 110, B: 168, Alpha: 0.8 */
+    padding: 1em;
+    border-radius: 1em;
+  }
+
+  .button-container button {
+    /* Adjust button styles for desktop */
+  }
+
 }
 
+/* Common styles for all buttons */
 /* Common styles for all buttons */
 .label {
   padding: 10px 20px;
@@ -47,24 +121,32 @@ h2{
   cursor: pointer;
   font-weight: bold;
   color: white;
+  font-weight: bold;
+  padding: 0.5rem .5rem;
+  border-radius: 8px;
+  background-color: #9a7c44; /* Grainy brown background color */
+  text-shadow: 0 0 2px rgba(0, 0, 0, 0.5); /* Text shadow for a subtle grainy effect */
 }
 
 /* Individual button styles */
 .label:nth-child(1) {
-  background-color: orange; /* LEFT button */
+  background-color: #ff7733; /* Slightly different color for the LEFT button */
 }
 
 .label:nth-child(2) {
-  background-color: red; /* MIDDLE button */
+  background-color: #ff3333; /* Slightly different color for the MIDDLE button */
 }
 
 .label:nth-child(3) {
-  background-color: green; /* RIGHT button */
+  background-color: #33cc33; /* Slightly different color for the RIGHT button */
 }
 
 .label:nth-child(4) {
-  background-color: blue; /* RIGHT button */
+  background-color: #3366ff; /* Slightly different color for the RIGHT button */
 }
+
+/* Add more styles for other nth-child selectors as needed */
+
 
 /* Add this CSS to your existing styles or create a new CSS file */
 
@@ -74,46 +156,26 @@ h2{
   justify-content: center;
   margin: 2em 0;
   overflow-x: auto; /* Enable horizontal scrolling for small screens */
-
 }
 
 .timeline-dot {
-  width: 16px;
-  height: 16px;
+  width: 6vmin;
+	height: 6vmin;
+  margin:0 .1em;
   border-radius: 50%;
-  background-color: #ccc;
+  background-color: #a559f8; /* Initial blue color */
   display: flex;
   align-items: center;
   justify-content: center;
   font-weight: bold;
-  font-size: 12px;
   color: #fff;
-  margin: 0 2px;
   transition: background-color 0.3s ease;
- 
 }
 
 .timeline-dot.filled {
-  background-color: #007bff; /* Change this color to match your design */
+  background-color: white; /* Change to the desired color as questions progress */
+  color:grey;
 }
-
-.progress-bar {
-  width: 100%;
-  height: 6px;
-  background-color: #ccc;
-  position: relative;
-  margin-top: 8px;
-}
-
-.progress-bar-fill {
-  height: 100%;
-  background-color: #007bff; /* Change this color to match your design */
-  transition: width 0.3s ease;
-}
-
-
-/*Language*/
-/* Add this CSS to your existing styles or create a new CSS file */
 
 .language-toggle {
   display: flex;
