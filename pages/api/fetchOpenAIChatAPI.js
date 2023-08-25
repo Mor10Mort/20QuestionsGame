@@ -11,7 +11,7 @@ export async function fetchOpenAIChatAPI(conversation, language, isMakingGuess) 
         "By using deductive reasoning, I will review earlier asked question to comeup with next question",
         "When I feel game is coming to end, I will respond with a sentence that starts with 'ABC:'.",
         "Instead of typing 'Is the think you are thinking of an animal?' I write 'Is it an animal?'",
-        "I use max 5 words pr questions",
+        "I use max 6 words pr questions",
         "I will now ask you first question.",
     ];
     // Format the instructions for use in the API response
