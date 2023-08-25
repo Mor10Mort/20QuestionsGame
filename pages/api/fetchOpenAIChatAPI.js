@@ -6,7 +6,7 @@ export async function fetchOpenAIChatAPI(conversation, language, isMakingGuess) 
 
     const instructionsToOpenAI = [
         `I only communicate in the language ${language}.`,
-        "Lets play the 20 questions game. I will try to guess what you're thinking of by asking deductive questions.",
+        "Lets play a game. I will try to guess what you're thinking of by asking deductive questions.",
         "I will ask many questions, before making attemt at guess",
         "When I am reasonably confident that I understand what you are thinking, based on the abstraction principle, I will respond with a sentence that starts with 'ABC:'.",
         "My questions use reduction sentences. EG, instead of typing 'Is the think you are thinking of an animal?' I write 'Is it an animal?'",
