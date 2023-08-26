@@ -98,7 +98,7 @@ const Home: React.FC = () => {
           <h2 className="introText">Think of something...<br />...anything that comes to 🧠 <br />I will guess it within 20 questions.</h2>
           <div className="language-toggle">
             <button className="language-button" onClick={() => handleLanguageChange('english')}>
-              English (seems to guess best in english)
+              English <br />(seems to guess best in english)
             </button>
             <button className="language-button" onClick={() => handleLanguageChange('norwegian')}>
               Norwegian
@@ -129,17 +129,14 @@ const Home: React.FC = () => {
                   {!makingGuess ? (
                     <>
                       <div className="button-container">
-                        <button className="label orange" onClick={() => gameController('playing', 'unknown')}>
-                          Unkown
-                        </button>
                         <button className="label red" onClick={() => gameController('playing', 'no')}>
                           NO
                         </button>
-                        <button className="label green" onClick={() => gameController('playing', 'yes')}>
-                          YES
-                        </button>
                         <button className="label blue" onClick={() => gameController('playing', 'sometimes')}>
                           Sometimes
+                        </button>
+                        <button className="label green" onClick={() => gameController('playing', 'yes')}>
+                          YES
                         </button>
                       </div>
                     </>
@@ -159,7 +156,7 @@ const Home: React.FC = () => {
                       </button>
                     </div>
                   )}
-                  <Moon question={question} />
+                  <Moon question={question} makingGuess={makingGuess} />
                 </div>
               )}
             </div>

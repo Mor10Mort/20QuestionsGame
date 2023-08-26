@@ -6,12 +6,12 @@ export async function fetchOpenAIChatAPI(conversation, language, isMakingGuess) 
 
     const instructionsToOpenAI = [
         `I only communicate in the language ${language}.`,
-        "Lets play the 20 question game. I will guess what you're thinking of by asking deductive yes or no questions.",
-        "I use max 5 words pr questions",
-        "I am not allowed to give up or ask for hints. I must continue providing responses.",
+        "Lets play the 30 question game. I will guess what you're thinking of by asking yes or no questions.",
         "By using deductive reasoning, I will review earlier asked question to comeup with next question",
-        "When I feel game is coming to end (100% certain) and i know exactly what it is, I will respond with a sentence that starts with 'ABC:'.",
-        "Instead of typing 'Is the think you are thinking of an animal?' I write 'Is it an animal?'",
+        "I am at no point allowed to give up or ask for context or additional information.",
+        "It's okay for me to ask wrong, but I will use our conversation to make a deductive guesses",
+        "When I have asked 30 questions, I will respond with a sentence that starts with 'ABC:'.",
+        "Even though the player repeats 'No' to all questions, I will keep asking questions. I will not give up.",
         "I will now ask you first question.",
     ];
     // Format the instructions for use in the API response
@@ -32,7 +32,7 @@ export async function fetchOpenAIChatAPI(conversation, language, isMakingGuess) 
         ];
     }
 
-    console.log('conversationWithInstructions', conversationWithInstructions);
+    //console.log('conversationWithInstructions', conversationWithInstructions);
 
     try {
         const response = await fetch('https://api.openai.com/v1/chat/completions', {
@@ -42,7 +42,7 @@ export async function fetchOpenAIChatAPI(conversation, language, isMakingGuess) 
                 Authorization: `Bearer ${process.env.OPENAI_API_KEY}`,
             },
             body: JSON.stringify({
-                model: 'gpt-3.5-turbo-0613',
+                model: 'gpt-3.5-turbo',
                 messages: conversationWithInstructions,
             }),
         });

@@ -90,7 +90,8 @@ padding:1em;
   height: 100vh; /* Set container height to 100% of viewport height */
 }
 .container {
-    display: inherit;
+    display: flex;
+    flex-direction: column-reverse;
   }
 
 /* Media query for desktop layout */
@@ -120,13 +121,12 @@ padding:1em;
 /* Common styles for all buttons */
 /* Common styles for all buttons */
 .label {
-  padding: 10px 20px;
   border: none;
   cursor: pointer;
   font-weight: bold;
   color: white;
   font-weight: bold;
-  padding: 0.5rem .5rem;
+  padding: 0.5rem 1.0rem;
   border-radius: 8px;
   background-color: #9a7c44; /* Grainy brown background color */
   text-shadow: 0 0 2px rgba(0, 0, 0, 0.5); /* Text shadow for a subtle grainy effect */
@@ -158,7 +158,7 @@ padding:1em;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 2em 0;
+  margin: 1.5em 0 1em 0;
   overflow-x: auto; /* Enable horizontal scrolling for small screens */
 }
 
@@ -167,7 +167,7 @@ padding:1em;
 	height: 6vmin;
   margin:0 .1em;
   border-radius: 50%;
-  background-color: #a559f8; /* Initial blue color */
+  background-color: #ff22b4; /* Initial blue color */
   display: flex;
   align-items: center;
   justify-content: center;

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Head from 'next/head';
 import styles from './Moon.module.css'; // Import the CSS module
 
-const Moon = ({ question }) => {
+const Moon = ({ question, makingGuess }) => {
     const [showQuestion, setShowQuestion] = useState(false);
 
     useEffect(() => {
@@ -29,6 +29,7 @@ const Moon = ({ question }) => {
                     <div className={`${showQuestion ? 'showQ' : ''}`}>
                         {showQuestion && (
                             <p className={styles.question}>
+                                {makingGuess && "Im feeling confident..."}
                                 {question.content}
                             </p>
                         )}

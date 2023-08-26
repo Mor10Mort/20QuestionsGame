@@ -25,15 +25,16 @@ export async function handlePlayingController(conversation, answer, language) {
 
     let countQuestions = conversation.filter(message => message.role === 'assistant').length;
     if (countQuestions >= maxQuestions) {
+        console.log("20 up");
         const makeAGuessInstructions = [
             ...conversation,
             {
                 role: 'system',
-                content: "Make guess of what you think it is. No follow-up questions."
+                content: "I will now make a final guess. I will ask no follow-up questions."
             },
             {
                 role: 'system',
-                content: "Just take a guess. Its okay to be wrong."
+                content: "It's okay for me to guess wrong, but I will use our conversation to make a deductive guess."
             },
             {
                 role: 'system',
@@ -42,7 +43,7 @@ export async function handlePlayingController(conversation, answer, language) {
 
         ];
 
-        const justMakeGuess = await fetchOpenAIChatAPI(makeAGuessInstructions, language, true);
+        const justMakeGuess = await fetchOpenAIChatAPI(makeAGuessInstructions, language, false);
         //Fjerner "making a guess" fra setning
         let openAImakingGuess = justMakeGuess.content.includes("ABC");
         if (openAImakingGuess) {
@@ -121,12 +122,16 @@ export async function handleRespondToGuessController(conversation, answer, langu
                 content: "Last question was wrong guess. I am on the wrong path. I need to ask a little broader questions to get back on track."
             },
             {
+                role: 'system',
+                content: "This is hard, but I am not allowed to give up. I will continue ask questions so i can win the game."
+            },
+            {
                 role: 'assistant',
                 content: 'Thank you for patience. Lets keep trying.'
             }
         ];
 
-        const keepTrying = await fetchOpenAIChatAPI(guessedWrong, language, true);
+        const keepTrying = await fetchOpenAIChatAPI(guessedWrong, language, false);
         conversation.push(keepTrying);
         const numberOfAssistantQuestions = conversation.filter(message => message.role === 'assistant').length;
 
