@@ -166,7 +166,6 @@ padding:1em;
   width: 6vmin;
 	height: 6vmin;
   margin:0 .1em;
-  border-radius: 50%;
   background-color: #ff22b4; /* Initial blue color */
   display: flex;
   align-items: center;
@@ -175,7 +174,11 @@ padding:1em;
   color: #fff;
   transition: background-color 0.3s ease;
 }
-
+@media (min-width: 768px) {
+  .timeline-dot {
+    border-radius: 50%;
+  }
+}
 .timeline-dot.filled {
   background-color: white; /* Change to the desired color as questions progress */
   color:grey;
