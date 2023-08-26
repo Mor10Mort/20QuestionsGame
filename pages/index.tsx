@@ -103,6 +103,9 @@ const Home: React.FC = () => {
             <button className="language-button" onClick={() => handleLanguageChange('norwegian')}>
               Norwegian
             </button>
+            <button className="language-button" onClick={() => handleLanguageChange('spanish')}>
+              Spanish
+            </button>
           </div>
         </div>
       )
