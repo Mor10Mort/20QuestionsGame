@@ -77,20 +77,18 @@
 }
 
 .question {
-	color: #333;
-	text-shadow: 0 0 0.6em rgb(49 45 32);
-	padding: .5em;
+    color: #333;
+    text-shadow: 0 0 0.6em rgb(49, 45, 32);
+    padding: 0.5em;
     font-weight: bold;
-	text-align: center;
-	opacity: 1;
-	font-family: 'Cinzel Decorative', sans-serif;
-	font-size: 5vw;
+    text-align: center;
+    opacity: 1;
+    font-family: 'Cinzel Decorative', sans-serif;
 }
 
 /* Adjust font size for larger desktop screens */
 @media screen and (min-width: 500px) {
 	.question {
-		font-size: 2.5vw;
 		/* Adjusted font size for larger screens */
 	}
 }

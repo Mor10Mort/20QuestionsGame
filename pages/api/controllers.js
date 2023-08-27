@@ -119,7 +119,7 @@ export async function handleRespondToGuessController(conversation, answer, langu
             },
             {
                 role: 'system',
-                content: "Last question was wrong guess. I am on the wrong path. I need to ask a little broader questions to get back on track."
+                content: "Last guess was wrong guess. I am on the wrong path. I need to ask a little broader questions to get back on track."
             },
             {
                 role: 'system',
@@ -131,7 +131,7 @@ export async function handleRespondToGuessController(conversation, answer, langu
             }
         ];
 
-        const keepTrying = await fetchOpenAIChatAPI(guessedWrong, language, false);
+        const keepTrying = await fetchOpenAIChatAPI(guessedWrong, language, true);
         conversation.push(keepTrying);
         const numberOfAssistantQuestions = conversation.filter(message => message.role === 'assistant').length;
 

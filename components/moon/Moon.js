@@ -25,7 +25,7 @@ const Moon = ({ question, makingGuess }) => {
             <div className={styles.container_moon}>
                 <div className={styles.moon}>
                     <div className={`${styles.moonTexture}`}></div>
-                    <div className={`${styles.moonShade} ${styles.moonShadeLeft}`}></div>
+                    <div className={`${styles.moonShadeLeft}`}></div>
                     <div className={`${showQuestion ? 'showQ' : ''}`}>
                         {showQuestion && (
                             <p className={styles.question}>
@@ -34,7 +34,7 @@ const Moon = ({ question, makingGuess }) => {
                             </p>
                         )}
                     </div>
-                    <div className={`${styles.moonShade} ${styles.moonShadeRight}`}></div>
+                    <div className={`${styles.moonShadeRight}`}></div>
                 </div>
             </div>
         </>

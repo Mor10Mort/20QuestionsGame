@@ -5,21 +5,31 @@ export async function fetchOpenAIChatAPI(conversation, language, isMakingGuess) 
     console.log('isMakingGuess', isMakingGuess);
 
     const instructionsToOpenAI = [
-        `I only communicate in the language ${language}.`,
-        "Lets play the 30 question game. I will guess what you're thinking of by asking yes or no questions.",
-        "By using deductive reasoning, I will review earlier asked question to comeup with next question",
-        "I am at no point allowed to give up or ask for context or additional information.",
-        "It's okay for me to ask wrong, but I will use our conversation to make a deductive guesses",
-        "When I have asked 30 questions, I will respond with a sentence that starts with 'ABC:'.",
-        "Even though the player repeats 'No' to all questions, I will keep asking questions. I will not give up.",
-        "I will now ask you first question.",
-    ];
-    // Format the instructions for use in the API response
-    const formattedInstructions = instructionsToOpenAI.map((message) => ({
-        role: 'system', content: message
-    }));
+        {
+            role: 'system', content: `I only communicate in the language ${language}.`
+        },
+        {
+            role: 'system', content: "Let's play a game of 20 Questions. I ask only yes or no questions, and at times i get creative and ask 'outside the box' questions.",
+        },
+        {
+            role: 'system', content: "You are detective and use logical, deductive questioning to to find out what the player is thinking."
+        },
+        {
+            role: 'system', content: "The response should be no more that 6 words. I do not need to number the questions."
+        },
+        {
+            role: 'assistant', content: "Example assistant: Is this something that is assicoated with you? Example user: yes. Example assistant: Is it during a holiday? Example user: yes. Example assistant: Is during red season? Example user: yes. Example assistant: Is it a santa? Example user: yes.",
+        },
+        {
+            role: 'assistant', content: "WHen I am confident that i know the answer I'll respond with a sentence starting with 'ABC:"
+        },
+        {
+            role: 'assistant',
+            content: "Let's start! I'll begin by asking a short question",
+        },
+    ]
 
-    let conversationWithInstructions = [...formattedInstructions];
+    let conversationWithInstructions = [...instructionsToOpenAI];
 
     if (isMakingGuess) {
         conversationWithInstructions = [
@@ -32,7 +42,7 @@ export async function fetchOpenAIChatAPI(conversation, language, isMakingGuess) 
         ];
     }
 
-    //console.log('conversationWithInstructions', conversationWithInstructions);
+    console.log('conversationWithInstructions', conversationWithInstructions);
 
     try {
         const response = await fetch('https://api.openai.com/v1/chat/completions', {
@@ -44,6 +54,7 @@ export async function fetchOpenAIChatAPI(conversation, language, isMakingGuess) 
             body: JSON.stringify({
                 model: 'gpt-3.5-turbo',
                 messages: conversationWithInstructions,
+                temperature: 1,  // Adjust the temperature value as needed
             }),
         });
 
