@@ -95,6 +95,7 @@ const Home: React.FC = () => {
     <div>
       {!gameStarted && (
         <div className='intro-container'>
+          <h1 className='introTitle'>20 questions (game)</h1>
           <h2 className="introText">
             🧠 of something...<br />
             For example: a squirrel, cake, airplane (keep it fairly general).<br />

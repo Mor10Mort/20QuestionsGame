@@ -54,8 +54,11 @@ padding:1em;
 border-radius: 1em;
 font-size: 1.5em;
 }
+.introTitle{
+  color:white;
+}
 .introText{
-  margin:2em;
+  margin:1em 0;
   line-height: 2em;
 }
 .playAgain {
