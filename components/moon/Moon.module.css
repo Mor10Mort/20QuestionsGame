@@ -34,7 +34,7 @@
   height: 100%;
   border-radius: 50% 0 0 50%; /* Adjusted border-radius for curved effect */
   top: 0;
-  left: -15px;
+  left: -20px;
   background: linear-gradient(to right, rgba(0, 0, 0, 0.55), transparent);
   transform-origin: right;
   transform: skewX(-16deg);
@@ -42,11 +42,11 @@
 .moonShadeRight{
 	position: absolute;
 	box-shadow: 0 0 20px rgb(255 255 255 / 19%);
-    width: 21%;
+    width: 25%;
     height: 100%;
     border-radius: 50% 0 0 50%;
     top: 0;
-    right: -66px;
+    right: -75px;
     background: linear-gradient(to left, rgba(0, 0, 0, 0.15), transparent);
     transform-origin: left;
     transform: skewX(322deg);

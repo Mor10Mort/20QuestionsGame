@@ -95,7 +95,11 @@ const Home: React.FC = () => {
     <div>
       {!gameStarted && (
         <div className='intro-container'>
-          <h2 className="introText">Think of something...<br />...anything that comes to 🧠 <br />I will guess it within 20 questions.</h2>
+          <h2 className="introText">
+            Think of something... 🧠<br />
+            For example: a squirrel, cake, airplane.<br />
+            Open AI will attempt to guess it within 20 questions.
+          </h2>
           <div className="language-toggle">
             <button className="language-button" onClick={() => handleLanguageChange('english')}>
               English <br />(seems to guess best in english)
