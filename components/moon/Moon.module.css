@@ -88,7 +88,7 @@
 }
 
 /* Adjust font size for larger desktop screens */
-@media screen and (min-width: 500px) {
+@media screen and (min-width: 700px) {
 	.question {
 	font-size: 4vh;
 	}
