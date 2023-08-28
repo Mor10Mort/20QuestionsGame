@@ -97,7 +97,7 @@ const Home: React.FC = () => {
         <div className='intro-container'>
           <h2 className="introText">
             🧠 of something...<br />
-            Keep it fairly general, for example: a squirrel, cake, airplane <br />
+            For example: a squirrel, cake, airplane (keep it fairly general).<br />
             Open AI will attempt to guess it within 20 questions.
           </h2>
           <div className="language-toggle">
