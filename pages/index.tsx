@@ -96,8 +96,8 @@ const Home: React.FC = () => {
       {!gameStarted && (
         <div className='intro-container'>
           <h2 className="introText">
-            Think of something... 🧠<br />
-            For example: a squirrel, cake, airplane.<br />
+            🧠 of something...<br />
+            Keep it fairly general, for example: a squirrel, cake, airplane <br />
             Open AI will attempt to guess it within 20 questions.
           </h2>
           <div className="language-toggle">
