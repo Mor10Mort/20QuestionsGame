@@ -1,27 +1,13 @@
 // fetchOpenAIChatAPI.js
 
-export async function fetchOpenAIChatAPI(conversation, language, isMakingGuess) {
-    console.log('language', language);
-    console.log('isMakingGuess', isMakingGuess);
+export async function fetchOpenAIChatAPI(conversation, language, normalGamePlay, gameEnd, guessedWrong) {
 
-    const instructionsToOpenAI = [
+    const innitialInstructionsToOpenAI = [
         {
             role: 'system', content: `I only communicate in the language ${language}.`
         },
         {
-            role: 'system', content: "Let's play a game of 20 Questions. I ask only yes or no questions, and at times i get creative and ask 'outside the box' questions.",
-        },
-        {
-            role: 'system', content: "You are detective and use logical, deductive questioning to to find out what the player is thinking."
-        },
-        {
-            role: 'system', content: "The response should be no more that 6 words. I do not need to number the questions."
-        },
-        {
-            role: 'assistant', content: "Example assistant: Is this something that is assicoated with you? Example user: yes. Example assistant: Is it during a holiday? Example user: yes. Example assistant: Is during red season? Example user: yes. Example assistant: Is it a santa? Example user: yes.",
-        },
-        {
-            role: 'assistant', content: "WHen I am confident that i know the answer I'll respond with a sentence starting with 'ABC:"
+            role: 'system', content: "Your role is a clever quiz master. Lets play the 20 questions game. Example, 'Is it a something hard?'",
         },
         {
             role: 'assistant',
@@ -29,13 +15,60 @@ export async function fetchOpenAIChatAPI(conversation, language, isMakingGuess) 
         },
     ]
 
-    let conversationWithInstructions = [...instructionsToOpenAI];
+    let conversationWithInstructions = [...innitialInstructionsToOpenAI];
 
-    if (isMakingGuess) {
+    //alle prompts sent til Open AI
+    if (normalGamePlay) {
         conversationWithInstructions = [
-            ...conversation
+
+            {
+                role: 'assistant',
+                content: "Feel free to take your time and ask thoughtful questions to narrow down the possibilities. It's better to ask broad questions initially before getting into specific items. Remember, the goal is to guess the player's thought in 20 questions by making logical deductions.",
+            },
+            {
+                role: 'system',
+                content: "During the final phase, only make a guess if the player has answered 'yes' to the last 5 questions consecutively. Your guess should start with 'ABC:' and contain only 1 specific item or category.",
+            },
+            ...conversation,
         ];
+    } else if (gameEnd) {
+        conversationWithInstructions = [
+            ...conversation,
+            {
+                role: 'system',
+                content: "I will now make a final guess. I will ask no follow-up questions."
+            },
+            {
+                role: 'system',
+                content: "It's okay for me to guess wrong, but I will use our conversation to make a deductive guess."
+            },
+            {
+                role: 'system',
+                content: "My guess is brief. 5 word."
+            },
+        ]
+    } else if (guessedWrong) {
+        conversationWithInstructions = [
+            ...conversation,
+            {
+                role: 'user',
+                content: 'no'
+            },
+            {
+                role: 'system',
+                content: "Last question was wrong guess. I am on the wrong path. I need to ask a little broader questions to get back on track. Feel free to take your time and ask thoughtful questions to narrow down the possibilities.It's better to ask broad questions initially before getting into specific items. Remember, the goal is to guess the player's thought in 20 questions by making logical deductions."
+            },
+            {
+                role: 'system',
+                content: "This is hard, but I am not allowed to give up. I will continue ask questions so i can win the game."
+            },
+            {
+                role: 'assistant',
+                content: 'Thank you for patience. Lets keep trying.'
+            },
+        ]
     } else if (conversation.length > 0) {
+        //denne trigges kun første runde/spm
         conversationWithInstructions = [
             ...conversationWithInstructions,
             ...conversation
@@ -55,6 +88,7 @@ export async function fetchOpenAIChatAPI(conversation, language, isMakingGuess) 
                 model: 'gpt-3.5-turbo',
                 messages: conversationWithInstructions,
                 temperature: 1,  // Adjust the temperature value as needed
+                max_tokens: 50,
             }),
         });
 

@@ -3,7 +3,7 @@ import { fetchOpenAIChatAPI } from './fetchOpenAIChatAPI'; // Import the functio
 export async function handleStartController(conversation, language) {
     console.log('Reset');
     conversation.length = 0;
-    const response = await fetchOpenAIChatAPI([], language, false);
+    const response = await fetchOpenAIChatAPI([], language, false, false, false);
     conversation.push(response);
 
     const addNumbering = {
@@ -24,26 +24,10 @@ export async function handlePlayingController(conversation, answer, language) {
     let response;
 
     let countQuestions = conversation.filter(message => message.role === 'assistant').length;
+    console.log('countQuestions', countQuestions);
     if (countQuestions >= maxQuestions) {
         console.log("20 up");
-        const makeAGuessInstructions = [
-            ...conversation,
-            {
-                role: 'system',
-                content: "I will now make a final guess. I will ask no follow-up questions."
-            },
-            {
-                role: 'system',
-                content: "It's okay for me to guess wrong, but I will use our conversation to make a deductive guess."
-            },
-            {
-                role: 'system',
-                content: "My guess is brief. 5 word."
-            },
-
-        ];
-
-        const justMakeGuess = await fetchOpenAIChatAPI(makeAGuessInstructions, language, false);
+        const justMakeGuess = await fetchOpenAIChatAPI(conversation, language, false, true, false);
         //Fjerner "making a guess" fra setning
         let openAImakingGuess = justMakeGuess.content.includes("ABC");
         if (openAImakingGuess) {
@@ -55,7 +39,7 @@ export async function handlePlayingController(conversation, answer, language) {
         justMakeGuess.questionNumber = 20;
         response = justMakeGuess;
     } else {
-        const gptResponse = await fetchOpenAIChatAPI(conversation, language, false);
+        const gptResponse = await fetchOpenAIChatAPI(conversation, language, true, false, false);
 
         //Fjerner "making a guess" fra setning
         let openAImakingGuess = gptResponse.content.includes("ABC");
@@ -111,27 +95,7 @@ export async function handleRespondToGuessController(conversation, answer, langu
         //OPEN AI GUESSED WRONG, but still has questions left
         console.log("< 20 q. Game continues");
 
-        const guessedWrong = [
-            ...conversation,
-            {
-                role: 'user',
-                content: 'no'
-            },
-            {
-                role: 'system',
-                content: "Last guess was wrong guess. I am on the wrong path. I need to ask a little broader questions to get back on track."
-            },
-            {
-                role: 'system',
-                content: "This is hard, but I am not allowed to give up. I will continue ask questions so i can win the game."
-            },
-            {
-                role: 'assistant',
-                content: 'Thank you for patience. Lets keep trying.'
-            }
-        ];
-
-        const keepTrying = await fetchOpenAIChatAPI(guessedWrong, language, true);
+        const keepTrying = await fetchOpenAIChatAPI(conversation, language, false, false, true);
         conversation.push(keepTrying);
         const numberOfAssistantQuestions = conversation.filter(message => message.role === 'assistant').length;
 
