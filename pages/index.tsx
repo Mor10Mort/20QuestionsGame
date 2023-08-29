@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Moon from '../components/moon/Moon';
 import { v4 as uuidv4 } from 'uuid';
 import LoadingSpinner from '../components/loading/LoadingSpinner';
+import Head from 'next/head';
 
 // Define the sendRequest function
 async function sendRequest(sessionId, controller, language, answer = null) {
@@ -92,105 +93,110 @@ const Home: React.FC = () => {
   };
 
   return (
-    <div>
-      {!gameStarted && (
-        <div className='intro-container'>
-          <h1 className='introTitle'>20 questions (game)</h1>
-          <h2 className="introText">
-            🧠 of something...<br />
-            For example: a squirrel, cake, airplane (keep it fairly general).<br />
-            Open AI will attempt to guess it within 20 questions.
-          </h2>
-          <div className="language-toggle">
-            <button className="language-button" onClick={() => handleLanguageChange('english')}>
-              English <br />(seems to guess best in english)
-            </button>
-            <button className="language-button" onClick={() => handleLanguageChange('norwegian')}>
-              Norwegian
-            </button>
-            <button className="language-button" onClick={() => handleLanguageChange('spanish')}>
-              Spanish
-            </button>
-          </div>
-        </div>
-      )
-      }
-      {
-        gameStarted && !gameOver && (
-          <section>
-            <div>
-              <div className="timeline">
-                {[...Array(20)].map((_, index) => (
-                  <div
-                    key={index}
-                    className={`timeline-dot ${index < questionNumber ? 'filled' : ''}`}
-                    onClick={() => alert(`Index: ${index}`)}
-                  >
-                    {20 - index}
-                  </div>
-                ))}
-              </div>
-
-              {isLoading && <LoadingSpinner />}
-              {!showSuccessMessage && (
-                <div className='container'>
-                  {!makingGuess ? (
-                    <>
-                      <div className="button-container">
-                        <button className="label red" onClick={() => gameController('playing', 'no')}>
-                          NO
-                        </button>
-                        <button className="label blue" onClick={() => gameController('playing', 'sometimes')}>
-                          Sometimes
-                        </button>
-                        <button className="label green" onClick={() => gameController('playing', 'yes')}>
-                          YES
-                        </button>
-                      </div>
-                    </>
-                  ) : (
-                    <div className="button-container">
-                      <button className="label red" onClick={() => gameController(
-                        'respondToGuess',
-                        'no'
-                      )}>
-                        Thats not it!
-                      </button>
-                      <button className="label green" onClick={() => gameController(
-                        'respondToGuess',
-                        'yes'
-                      )}>
-                        YOU GUESSED IT!
-                      </button>
-                    </div>
-                  )}
-                  <Moon question={question} makingGuess={makingGuess} />
-                </div>
-              )}
-            </div>
-          </section>
-
-        )
-      }
-      {
-        gameOver && (
-          <section>
-            <div className="resultOfGame">
-              <p className='question'> {question.content}</p>
-              <button onClick={() => {
-                initializeGame(sessionId, language);
-                setGameOver(false);
-                setShowSuccessMessage(false);
-                setQuestionNumber(1);
-                setQuestion({ content: "" });
-              }} className="playAgain">
-                Play Again
+    <>
+      <Head>
+        <title>The 20 Question Game with OpenAI</title>
+      </Head>
+      <div>
+        {!gameStarted && (
+          <div className='intro-container'>
+            <h1 className='introTitle'>20 questions (game)</h1>
+            <h2 className="introText">
+              🧠 of something...<br />
+              For example: a squirrel, cake, airplane (keep it fairly general).<br />
+              Open AI will attempt to guess it within 20 questions.
+            </h2>
+            <div className="language-toggle">
+              <button className="language-button" onClick={() => handleLanguageChange('english')}>
+                English <br />(seems to guess best in english)
+              </button>
+              <button className="language-button" onClick={() => handleLanguageChange('norwegian')}>
+                Norwegian
+              </button>
+              <button className="language-button" onClick={() => handleLanguageChange('spanish')}>
+                Spanish
               </button>
             </div>
-          </section>
+          </div>
         )
-      }
-    </div >
+        }
+        {
+          gameStarted && !gameOver && (
+            <section>
+              <div>
+                <div className="timeline">
+                  {[...Array(20)].map((_, index) => (
+                    <div
+                      key={index}
+                      className={`timeline-dot ${index < questionNumber ? 'filled' : ''}`}
+                      onClick={() => alert(`Index: ${index}`)}
+                    >
+                      {20 - index}
+                    </div>
+                  ))}
+                </div>
+
+                {isLoading && <LoadingSpinner />}
+                {!showSuccessMessage && (
+                  <div className='container'>
+                    {!makingGuess ? (
+                      <>
+                        <div className="button-container">
+                          <button className="label red" onClick={() => gameController('playing', 'no')}>
+                            NO
+                          </button>
+                          <button className="label blue" onClick={() => gameController('playing', 'sometimes')}>
+                            Sometimes
+                          </button>
+                          <button className="label green" onClick={() => gameController('playing', 'yes')}>
+                            YES
+                          </button>
+                        </div>
+                      </>
+                    ) : (
+                      <div className="button-container">
+                        <button className="label red" onClick={() => gameController(
+                          'respondToGuess',
+                          'no'
+                        )}>
+                          Thats not it!
+                        </button>
+                        <button className="label green" onClick={() => gameController(
+                          'respondToGuess',
+                          'yes'
+                        )}>
+                          YOU GUESSED IT!
+                        </button>
+                      </div>
+                    )}
+                    <Moon question={question} makingGuess={makingGuess} />
+                  </div>
+                )}
+              </div>
+            </section>
+
+          )
+        }
+        {
+          gameOver && (
+            <section>
+              <div className="resultOfGame">
+                <p className='question'> {question.content}</p>
+                <button onClick={() => {
+                  initializeGame(sessionId, language);
+                  setGameOver(false);
+                  setShowSuccessMessage(false);
+                  setQuestionNumber(1);
+                  setQuestion({ content: "" });
+                }} className="playAgain">
+                  Play Again
+                </button>
+              </div>
+            </section>
+          )
+        }
+      </div >
+    </>
   );
 };
 
