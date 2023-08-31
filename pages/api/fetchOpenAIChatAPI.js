@@ -17,7 +17,7 @@ export async function fetchOpenAIChatAPI(conversation, language, normalGamePlay,
 
     let conversationWithInstructions = [...innitialInstructionsToOpenAI];
 
-    //alle prompts sent til Open AI
+    //prompts sent til Open AI
     if (normalGamePlay) {
         conversationWithInstructions = [
 

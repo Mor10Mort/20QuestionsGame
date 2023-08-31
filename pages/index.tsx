@@ -3,6 +3,7 @@ import Moon from '../components/moon/Moon';
 import { v4 as uuidv4 } from 'uuid';
 import LoadingSpinner from '../components/loading/LoadingSpinner';
 import Head from 'next/head';
+import Script from "next/script";
 
 // Define the sendRequest function
 async function sendRequest(sessionId, controller, language, answer = null) {
@@ -98,12 +99,22 @@ const Home: React.FC = () => {
         <title>The 20 Question Game with OpenAI</title>
       </Head>
       <div>
+        <Script src="https://www.googletagmanager.com/gtag/js?id=GG-36J5Q6VZD7" />
+        <Script id="google-analytics">
+          {`
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+ 
+          gtag('config', 'G-36J5Q6VZD7');
+        `}
+        </Script>
         {!gameStarted && (
           <div className='intro-container'>
             <h1 className='introTitle'>20 questions (game)</h1>
             <h2 className="introText">
               🧠 of something...<br />
-              e.g. a squirrel, cake, airplane (keep it fairly general).<br />
+              e.g.a squirrel, cake, airplane (keep it fairly general).<br />
               Open AI will attempt to guess it within 20 questions.
             </h2>
             <div className="language-toggle">
