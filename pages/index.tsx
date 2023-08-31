@@ -96,7 +96,8 @@ const Home: React.FC = () => {
   return (
     <>
       <Head>
-        <title>The 20 Question Game with OpenAI</title>
+        <title>Master the 20 Questions Challenge with OpenAI's Game</title>
+        <meta name="description" content="Unleash your strategic prowess in the ultimate 20 Questions Challenge by OpenAI. Engage in captivating gameplay, unravel mysteries, and witness AI in action. Experience fun and intelligence combined." />
       </Head>
       <div>
         <Script src="https://www.googletagmanager.com/gtag/js?id=GG-36J5Q6VZD7" />
