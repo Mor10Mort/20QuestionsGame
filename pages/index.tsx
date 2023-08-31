@@ -166,16 +166,30 @@ const Home: React.FC = () => {
                       </>
                     ) : (
                       <div className="button-container">
-                        <button className="label red" onClick={() => gameController(
-                          'respondToGuess',
-                          'no'
-                        )}>
+                        <button
+                          className="label red"
+                          onClick={() => {
+                            gameController('respondToGuess', 'no');
+                            // Track the event when the button is clicked
+                            gtag('event', 'AI_guessed_wrong', {
+                              event_category: 'Game Interaction',
+                              event_label: 'Thats Not It Button',
+                            });
+                          }}
+                        >
                           Thats not it!
                         </button>
-                        <button className="label green" onClick={() => gameController(
-                          'respondToGuess',
-                          'yes'
-                        )}>
+                        <button
+                          className="label green"
+                          onClick={() => {
+                            gameController('respondToGuess', 'yes');
+                            // Track the event when the button is clicked
+                            gtag('event', 'AI_guessed_correct', {
+                              event_category: 'Game Interaction',
+                              event_label: 'You Guessed It Button',
+                            });
+                          }}
+                        >
                           YOU GUESSED IT!
                         </button>
                       </div>
