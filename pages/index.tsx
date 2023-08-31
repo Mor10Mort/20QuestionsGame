@@ -114,7 +114,7 @@ const Home: React.FC = () => {
             <h1 className='introTitle'>20 questions (game)</h1>
             <h2 className="introText">
               🧠 of something...<br />
-              e.g.a squirrel, cake, airplane (keep it fairly general).<br />
+              e.g. a squirrel, cake, airplane (keep it fairly general).<br />
               Open AI will attempt to guess it within 20 questions.
             </h2>
             <div className="language-toggle">
