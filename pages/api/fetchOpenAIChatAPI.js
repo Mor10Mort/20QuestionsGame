@@ -49,6 +49,9 @@ export async function fetchOpenAIChatAPI(conversation, language, normalGamePlay,
         ]
     } else if (guessedWrong) {
         conversationWithInstructions = [
+            {
+                role: 'system', content: `I only communicate in the language ${language}.`
+            },
             ...conversation,
             {
                 role: 'user',
