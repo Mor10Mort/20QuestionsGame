@@ -112,15 +112,15 @@ const Home: React.FC = () => {
         </Script>
         {!gameStarted && (
           <div className='intro-container'>
-            <h1 className='introTitle'>Master the 20 Questions Challenge with OpenAI's Game</h1>
+            <h1 className='introTitle'>20 Questions Challenge with OpenAI</h1>
             <h2 className="introText">
               🧠 Think of something...<br />
-              It could be a squirrel, cake, airplane, or something else (keep it fairly general).<br />
+              E.g. a squirrel, cake, airplane, or whatever comes to mind.<br />
               Watch as OpenAI attempts to guess it within just 20 questions.
             </h2>
             <div className="language-toggle">
               <button className="language-button" onClick={() => handleLanguageChange('english')}>
-                English <br />(seems to guess best in english)
+                English <br />
               </button>
               <button className="language-button" onClick={() => handleLanguageChange('norwegian')}>
                 Norwegian

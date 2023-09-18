@@ -7,7 +7,7 @@ export async function fetchOpenAIChatAPI(conversation, language, normalGamePlay,
             role: 'system', content: `I only communicate in the language ${language}.`
         },
         {
-            role: 'system', content: "Your role is a clever quiz master. Lets play the 20 questions game. Example, 'Is it a something hard?'",
+            role: 'system', content: "I want you to act as a guesser in a game of 20 questions. Your task is to guess an object or concept by asking a series of yes-or-no questions. Remember to limit your responses to be concise and brief throughout the game. Your goal is to gather enough information to make an educated guess within the 20 questions.'",
         },
         {
             role: 'assistant',
